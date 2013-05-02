@@ -8,7 +8,9 @@ use List::Util qw(max);
 
 our $VERSION = "0.01";
 
-my $MIN_VERSION = version->new('5.008');
+my $MIN_VERSION   = version->new('5.008');
+my $VERSION_5_012 = version->new('5.012');
+my $VERSION_5_010 = version->new('5.010');
 
 sub new {
     my ($class, $stuff) = @_;
@@ -39,20 +41,69 @@ sub minimum_version {
     for my $i (0..@tokens-1) {
         my $token = $tokens[$i];
         if ($token->{name} eq 'ToDo') {
-            $version = max($version, version->new('5.012'));
+            # ... => 5.12
+            $version = max($version, $VERSION_5_012);
         } elsif ($token->{name} eq 'Package') {
             if (@tokens > $i+2) {
                 my $number = $tokens[$i+2];
                 if ($number->{name} eq 'Int' || $number->{name} eq 'Double' || $number->{name} eq 'Key') {
-                    $version = max($version, version->new('5.012'));
+                    # package NAME VERSION; => 5.012
+                    $version = max($version, $VERSION_5_012);
                 }
             }
+        } elsif ($token->{name} eq 'UseDecl' || $token->{name} eq 'RequireDecl') {
+            # use feature => 5.010
+            # use mro     => 5.010
+            if (@tokens >= $i+1) {
+                my $next_token = $tokens[$i+1];
+                if ($next_token->{data} eq 'mro' || $next_token->{data} eq 'feature') {
+                    $version = max($version, $VERSION_5_010);
+                }
+            }
+        } elsif ($token->{name} eq 'DefaultOperator') {
+            if ($token->{data} eq '//') {
+                $version = max($version, $VERSION_5_010);
+            }
+        } elsif ($token->{name} eq 'PolymorphicCompare') {
+            if ($token->{data} eq '~~') {
+                $version = max($version, $VERSION_5_010);
+            }
+        } elsif ($token->{name} eq 'DefaultEqual') {
+            if ($token->{data} eq '//=') {
+                $version = max($version, $VERSION_5_010);
+            }
+        } elsif ($token->{name} eq 'Mod') {
+            # %-
+            # %+
+            if (@tokens >= $i+1 && ($tokens[$i+1]->{name} eq 'Sub' || $tokens[$i+1]->{name} eq 'Add')) {
+                $version = max($version, $VERSION_5_010);
+            }
+        } elsif ($token->{name} eq 'SpecificValue') {
+            # $-{"a"}
+            # $+{"a"}
+            if ($token->{data} eq '$-' || $token->{data} eq '$+') {
+                $version = max($version, $VERSION_5_010);
+            }
+        } elsif ($token->{name} eq 'GlobalArrayVar') {
+            # @-{"a"}
+            if (@tokens >= $i+1 && $tokens[$i+1]->{name} eq 'Sub') {
+                $version = max($version, $VERSION_5_010);
+            }
+            # @+{"a"}
+            if (@tokens >= $i+1 && $tokens[$i+1]->{name} eq 'Add') {
+                $version = max($version, $VERSION_5_010);
+            }
+        } elsif ($token->{name} eq 'WhenStmt') {
+            if ($i >= 1 && ($tokens[$i-1]->{name} ne 'SemiColon' && $tokens[$i-1]->{name} ne 'RightBrace')) {
+                # postfix when
+                $version = max($version, $VERSION_5_012);
+            } else {
+                # normal when
+                $version = max($version, $VERSION_5_010);
+            }
         }
-        warn $token->{name};
-        # postfix when
     }
     return $version;
-    use Data::Dumper; warn Dumper(\@tokens);
 }
 
 1;
@@ -70,7 +121,12 @@ Perl::MinimumVersion::Fast - It's new $module
 
 =head1 DESCRIPTION
 
-Perl::MinimumVersion::Fast is ...
+Perl::MinimumVersion::Fast is alternativee implemntation of Perl::MinimumVersion.
+
+It's based on goccy's L<Compiler::Lexer>.
+
+This module detects features only supported on B<Perl 5.10+> like I<given>, I<when>.
+If you want to support B<Perl 5.6>, use L<Perl::MinimumVersion> instead.
 
 =head1 LICENSE
 
