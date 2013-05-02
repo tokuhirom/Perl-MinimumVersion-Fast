@@ -58,6 +58,8 @@ sub minimum_version {
                 my $next_token = $tokens[$i+1];
                 if ($next_token->{data} eq 'mro' || $next_token->{data} eq 'feature') {
                     $version = max($version, $VERSION_5_010);
+                } elsif ($next_token->{name} eq 'Double') {
+                    $version = max($version, version->new($next_token->{data}));
                 }
             }
         } elsif ($token->{name} eq 'DefaultOperator') {
