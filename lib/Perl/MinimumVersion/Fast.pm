@@ -121,6 +121,9 @@ Perl::MinimumVersion::Fast - It's new $module
 
     use Perl::MinimumVersion::Fast;
 
+    my $p = Perl::MinimumVersion::Fast->new($filename);
+    print $p->minimum_version, "\n";
+
 =head1 DESCRIPTION
 
 Perl::MinimumVersion::Fast is alternativee implemntation of Perl::MinimumVersion.
