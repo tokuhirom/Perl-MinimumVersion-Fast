@@ -133,6 +133,22 @@ It's based on goccy's L<Compiler::Lexer>.
 This module detects features only supported on B<Perl 5.10+> like I<given>, I<when>.
 If you want to support B<Perl 5.6>, use L<Perl::MinimumVersion> instead.
 
+=head1 METHODS
+
+=over 4
+
+=item my $p = Perl::MinimumVersion::Fast->new($filename);
+
+=item my $p = Perl::MinimumVersion::Fast->new(\$filename);
+
+Create new instance. You can create object from C<< $filename >> and C<< \$src >> in string.
+
+=item $p->minimum_version();
+
+Get a minimum perl version the code required.
+
+=back
+
 =head1 LICENSE
 
 Copyright (C) tokuhirom.
@@ -143,6 +159,10 @@ it under the same terms as Perl itself.
 =head1 AUTHOR
 
 tokuhirom E<lt>tokuhirom@gmail.comE<gt>
+
+=head1 SEE ALSO
+
+L<Compiler::Lexer>, L<Perl::MinimumVersion>
 
 =cut
 
