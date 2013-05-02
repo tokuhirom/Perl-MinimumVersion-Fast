@@ -23,7 +23,6 @@ my %args = (
         'Module::Build' => 0.38,
     },
 
-    no_index    => { 'directory' => [ 'inc' ] },
     name        => 'Perl-MinimumVersion-Fast',
     module_name => 'Perl::MinimumVersion::Fast',
 
