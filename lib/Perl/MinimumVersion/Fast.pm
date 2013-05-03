@@ -17,14 +17,14 @@ sub new {
 
     my $filename;
     my $src;
-    if (ref $stuff) {
+    if (ref $stuff ne 'SCALAR') {
         $filename = $stuff;
-        open my $fh, '<', $stuff
-            or die "Unknown file: $src";
+        open my $fh, '<', $filename
+            or die "Unknown file: $filename";
         $src = do { local $/; <$fh> }; 
     } else {
         $filename = '-';
-        $src = $stuff;
+        $src = $$stuff;
     }
 
     my $lexer = Compiler::Lexer->new($filename);
@@ -139,7 +139,7 @@ If you want to support B<Perl 5.6>, use L<Perl::MinimumVersion> instead.
 
 =item my $p = Perl::MinimumVersion::Fast->new($filename);
 
-=item my $p = Perl::MinimumVersion::Fast->new(\$filename);
+=item my $p = Perl::MinimumVersion::Fast->new(\$src);
 
 Create new instance. You can create object from C<< $filename >> and C<< \$src >> in string.
 
