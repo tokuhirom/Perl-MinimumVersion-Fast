@@ -74,10 +74,8 @@ sub minimum_version {
             if ($token->{data} eq '//=') {
                 $version = max($version, $VERSION_5_010);
             }
-        } elsif ($token->{name} eq 'Mod') {
-            # %-
-            # %+
-            if (@tokens >= $i+1 && ($tokens[$i+1]->{name} eq 'Sub' || $tokens[$i+1]->{name} eq 'Add')) {
+        } elsif ($token->{name} eq 'GlobalHashVar') {
+            if ($token->{data} eq '%-' || $token->{data} eq '%+') {
                 $version = max($version, $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'SpecificValue') {
@@ -87,12 +85,7 @@ sub minimum_version {
                 $version = max($version, $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'GlobalArrayVar') {
-            # @-{"a"}
-            if (@tokens >= $i+1 && $tokens[$i+1]->{name} eq 'Sub') {
-                $version = max($version, $VERSION_5_010);
-            }
-            # @+{"a"}
-            if (@tokens >= $i+1 && $tokens[$i+1]->{name} eq 'Add') {
+            if ($token->{data} eq '@-' || $token->{data} eq '@+') {
                 $version = max($version, $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'WhenStmt') {

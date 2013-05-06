@@ -39,7 +39,7 @@ for (
     [q{print "$_," when 1}, '5.012'],
     [q!warn; when (1) { }!, '5.010'],
     [q!use 5.010!, '5.010'],
-    [q!use 5.010_001!, '5.010001'],
+    [q!use 5.010_001!, '5.010_001'],
 ) {
     my ($src, $version) = @$_;
     my $p = Perl::MinimumVersion::Fast->new(\$src);
