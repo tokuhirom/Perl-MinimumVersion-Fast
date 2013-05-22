@@ -10,6 +10,7 @@ use Perl::MinimumVersion::Fast;
 use Benchmark qw(cmpthese);
 
 my $filename = 't/sample/Padre-SVN.pm';
+print "target file: $filename\n";
 
 my $c1 = sub {
     my $p = Perl::MinimumVersion::Fast->new($filename);
@@ -20,6 +21,10 @@ my $c2 = sub {
     my $p = Perl::MinimumVersion->new($filename);
     $p->minimum_version();
 };
+
+print "Testing:\n";
+print $c2->(), "\n";
+print $c1->(), "\n";
 
 cmpthese(
     -1 => {
