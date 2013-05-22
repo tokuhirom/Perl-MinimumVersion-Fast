@@ -5,6 +5,8 @@ use Test::More;
 
 use Perl::MinimumVersion::Fast;
 
+diag "Compiler::Lexer: $Compiler::Lexer::VERSION";
+
 for (
     ['...', '5.012'],
     ['package Foo', '5.008'],
