@@ -7,6 +7,7 @@ use Perl::MinimumVersion::Fast;
 
 diag "Compiler::Lexer: $Compiler::Lexer::VERSION";
 
+note '--- minimum_version';
 for (
     ['...', '5.012'],
     ['package Foo', '5.008'],
@@ -47,6 +48,44 @@ for (
     my $p = Perl::MinimumVersion::Fast->new(\$src);
     is($p->minimum_version, $version, $src);
 }
+
+subtest 'minimum_explict_version/minimum_syntax_version' => sub {
+    for (
+        # code                 explict      syntax
+        [q!use     5.010_001!, '5.010_001', '5.008'],
+        [q!require 5.010_001!, '5.010_001', '5.008'],
+        ['...',                undef,       '5.012'],
+    ) {
+        my ($src, $explicit_version, $syntax_version) = @$_;
+        my $p = Perl::MinimumVersion::Fast->new(\$src);
+        is($p->minimum_explicit_version, $explicit_version, "$src - explicit");
+        is($p->minimum_syntax_version,   $syntax_version,   "$src - syntax");
+    }
+};
+
+subtest 'version markers' => sub {
+    {
+        my $p = Perl::MinimumVersion::Fast->new(\'use 5.010_001');
+        is_deeply(
+            [$p->version_markers], [
+                '5.010_001' => [
+                    'explicit',
+                ],
+            ],
+        );
+    }
+
+    {
+        my $p = Perl::MinimumVersion::Fast->new(\'...');
+        is_deeply(
+            [$p->version_markers], [
+                '5.012' => [
+                    'yada-yada-yada operator(...)',
+                ],
+            ],
+        );
+    }
+};
 
 done_testing;
 

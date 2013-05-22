@@ -29,26 +29,55 @@ sub new {
 
     my $lexer = Compiler::Lexer->new($filename);
     my @tokens = $lexer->tokenize($src);
-    bless {
-        tokens => \@tokens,
-    }, $class;
+
+    my $self = bless { }, $class;
+    $self->{minimum_explicit_version} = $self->_build_minimum_explicit_version(\@tokens);
+    $self->{minimum_syntax_version}   = $self->_build_minimum_syntax_version(\@tokens);
+    $self;
 }
 
-sub minimum_version {
-    my $self = shift;
-    my @tokens = map { @$$_ } @{$self->{tokens}};
-    my $version = $MIN_VERSION;
+sub _build_minimum_explicit_version {
+    my ($self, $tokens) = @_;
+    my @tokens = map { @$$_ } @{$tokens};
+
+    my $explicit_version;
+    for my $i (0..@$tokens-1) {
+        if ($tokens[$i]->{name} eq 'UseDecl' || $tokens[$i]->{name} eq 'RequireDecl') {
+            # use feature => 5.010
+            # use mro     => 5.010
+            if (@$tokens >= $i+1) {
+                my $next_token = $tokens[$i+1];
+                if ($next_token->{name} eq 'Double') {
+                    $explicit_version = max($explicit_version || 0, version->new($next_token->{data}));
+                }
+            }
+        }
+    }
+    return $explicit_version;
+}
+
+sub _build_minimum_syntax_version {
+    my ($self, $tokens) = @_;
+    my @tokens = map { @$$_ } @{$tokens};
+    my $syntax_version = $MIN_VERSION;
+
+    my $test = sub {
+        my ($reason, $version) = @_;
+        $syntax_version = max($syntax_version, $version);
+        push @{$self->{version_markers}->{$version}}, $reason;
+    };
+
     for my $i (0..@tokens-1) {
         my $token = $tokens[$i];
         if ($token->{name} eq 'ToDo') {
             # ... => 5.12
-            $version = max($version, $VERSION_5_012);
+            $test->('yada-yada-yada operator(...)' => $VERSION_5_012);
         } elsif ($token->{name} eq 'Package') {
             if (@tokens > $i+2) {
                 my $number = $tokens[$i+2];
                 if ($number->{name} eq 'Int' || $number->{name} eq 'Double' || $number->{name} eq 'Key') {
                     # package NAME VERSION; => 5.012
-                    $version = max($version, $VERSION_5_012);
+                    $test->('package NAME VERSION' => $VERSION_5_012);
                 }
             }
         } elsif ($token->{name} eq 'UseDecl' || $token->{name} eq 'RequireDecl') {
@@ -56,49 +85,78 @@ sub minimum_version {
             # use mro     => 5.010
             if (@tokens >= $i+1) {
                 my $next_token = $tokens[$i+1];
-                if ($next_token->{data} eq 'mro' || $next_token->{data} eq 'feature') {
-                    $version = max($version, $VERSION_5_010);
-                } elsif ($next_token->{name} eq 'Double') {
-                    $version = max($version, version->new($next_token->{data}));
+                if ($next_token->{data} eq 'mro') {
+                    $test->('use mro' => $VERSION_5_010);
+                } elsif ($next_token->{data} eq 'feature') {
+                    $test->('use feature' => $VERSION_5_010);
                 }
             }
         } elsif ($token->{name} eq 'DefaultOperator') {
             if ($token->{data} eq '//') {
-                $version = max($version, $VERSION_5_010);
+                $test->('// operator' => $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'PolymorphicCompare') {
             if ($token->{data} eq '~~') {
-                $version = max($version, $VERSION_5_010);
+                $test->('~~ operator' => $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'DefaultEqual') {
             if ($token->{data} eq '//=') {
-                $version = max($version, $VERSION_5_010);
+                $test->('//= operator' => $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'GlobalHashVar') {
             if ($token->{data} eq '%-' || $token->{data} eq '%+') {
-                $version = max($version, $VERSION_5_010);
+                $test->('%-/%+' => $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'SpecificValue') {
             # $-{"a"}
             # $+{"a"}
             if ($token->{data} eq '$-' || $token->{data} eq '$+') {
-                $version = max($version, $VERSION_5_010);
+                $test->('%-/%+' => $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'GlobalArrayVar') {
             if ($token->{data} eq '@-' || $token->{data} eq '@+') {
-                $version = max($version, $VERSION_5_010);
+                $test->('%-/%+' => $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'WhenStmt') {
             if ($i >= 1 && ($tokens[$i-1]->{name} ne 'SemiColon' && $tokens[$i-1]->{name} ne 'RightBrace')) {
-                # postfix when
-                $version = max($version, $VERSION_5_012);
+                $test->("postfix when" => $VERSION_5_012);
             } else {
-                # normal when
-                $version = max($version, $VERSION_5_010);
+                $test->("normal when" => $VERSION_5_010);
             }
         }
     }
-    return $version;
+    return $syntax_version;
+}
+
+sub minimum_version {
+    my $self = shift;
+    return max($self->{minimum_explicit_version} || 0, $self->{minimum_syntax_version});
+}
+
+sub minimum_syntax_version {
+    my $self = shift;
+    return $self->{minimum_syntax_version};
+}
+
+sub minimum_explicit_version {
+    my $self = shift;
+    return $self->{minimum_explicit_version};
+}
+
+sub version_markers {
+    my $self = shift;
+
+    if ( my $explicit = $self->minimum_explicit_version ) {
+        $self->{version_markers}->{$explicit} = [ 'explicit' ];
+    }
+
+    my @rv;
+
+    foreach my $ver ( sort { version->new($a) <=> version->new($b) } keys %{$self->{version_markers}} ) {
+        push @rv, version->new($ver) => $self->{version_markers}->{$ver};
+    }
+
+    return @rv;
 }
 
 1;
@@ -145,6 +203,39 @@ Create new instance. You can create object from C<< $filename >> and C<< \$src >
 =item $p->minimum_version();
 
 Get a minimum perl version the code required.
+
+=item $p->minimum_explicit_version()
+
+The C<minimum_explicit_version> method checks through Perl code for the
+use of explicit version dependencies such as.
+
+  use 5.006;
+  require 5.005_03;
+
+Although there is almost always only one of these in a file, if more than
+one are found, the highest version dependency will be returned.
+
+Returns a L<version> object, C<undef> if no dependencies could be found.
+
+=item $p->minimum_syntax_version()
+
+The C<minimum_syntax_version> method will explicitly test only the
+Document's syntax to determine it's minimum version, to the extent
+that this is possible.
+
+Returns a L<version> object, C<undef> if no dependencies could be found.
+
+=item  version_markers
+
+This method returns a list of pairs in the form:
+
+    ($version, \@markers)
+
+Each pair represents all the markers that could be found indicating that the
+version was the minimum needed version.  C<@markers> is an array of strings.
+Currently, these strings are not as clear as they might be, but this may be
+changed in the future.  In other words: don't rely on them as specific
+identifiers.
 
 =back
 

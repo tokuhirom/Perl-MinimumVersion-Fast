@@ -35,6 +35,39 @@ In 2013, you don't need to support Perl 5.6 in most of case.
 
     Get a minimum perl version the code required.
 
+- $p->minimum\_explicit\_version()
+
+    The `minimum_explicit_version` method checks through Perl code for the
+    use of explicit version dependencies such as.
+
+        use 5.006;
+        require 5.005_03;
+
+    Although there is almost always only one of these in a file, if more than
+    one are found, the highest version dependency will be returned.
+
+    Returns a [version](http://search.cpan.org/perldoc?version) object, `undef` if no dependencies could be found.
+
+- $p->minimum\_syntax\_version()
+
+    The `minimum_syntax_version` method will explicitly test only the
+    Document's syntax to determine it's minimum version, to the extent
+    that this is possible.
+
+    Returns a [version](http://search.cpan.org/perldoc?version) object, `undef` if no dependencies could be found.
+
+- version\_markers
+
+    This method returns a list of pairs in the form:
+
+        ($version, \@markers)
+
+    Each pair represents all the markers that could be found indicating that the
+    version was the minimum needed version.  `@markers` is an array of strings.
+    Currently, these strings are not as clear as they might be, but this may be
+    changed in the future.  In other words: don't rely on them as specific
+    identifiers.
+
 # BENCHMARK
 
 Perl::MinimumVersion::Fast is faster than Perl::MinimumVersion.
