@@ -42,7 +42,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Compiler::Lexer" : "0",
+            "Compiler::Lexer" : "0.05",
             "perl" : "5.008005"
          }
       },
