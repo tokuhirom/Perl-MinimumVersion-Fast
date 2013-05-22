@@ -21,7 +21,7 @@ If you want to support __Perl 5.6__, use [Perl::MinimumVersion](http://search.cp
 # METHODS
 
 - my $p = Perl::MinimumVersion::Fast->new($filename);
-- my $p = Perl::MinimumVersion::Fast->new(\\$filename);
+- my $p = Perl::MinimumVersion::Fast->new(\\$src);
 
     Create new instance. You can create object from `$filename` and `\$src` in string.
 

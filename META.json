@@ -4,7 +4,7 @@
       "tokuhirom <tokuhirom@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.3.0, CPAN::Meta::Converter version 2.130880",
+   "generated_by" : "Minilla/v0.4.3, CPAN::Meta::Converter version 2.130880",
    "license" : [
       "perl_5"
    ],
@@ -64,5 +64,8 @@
          "web" : "https://github.com/tokuhirom/Perl-MinimumVersion-Fast"
       }
    },
-   "version" : "0.01"
+   "version" : "0.01",
+   "x_contributors" : [
+      "Kenichi Ishigaki <ishigaki@cpan.org>"
+   ]
 }
