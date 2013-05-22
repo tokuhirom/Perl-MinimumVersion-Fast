@@ -6,7 +6,7 @@ use warnings;
 use Compiler::Lexer;
 use List::Util qw(max);
 
-our $VERSION = "0.03";
+our $VERSION = "0.04";
 
 my $MIN_VERSION   = version->new('5.008');
 my $VERSION_5_012 = version->new('5.012');
