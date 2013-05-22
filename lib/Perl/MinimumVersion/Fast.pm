@@ -108,7 +108,7 @@ __END__
 
 =head1 NAME
 
-Perl::MinimumVersion::Fast - It's new $module
+Perl::MinimumVersion::Fast - Find a minimum required version of perl for Perl code
 
 =head1 SYNOPSIS
 
@@ -119,12 +119,18 @@ Perl::MinimumVersion::Fast - It's new $module
 
 =head1 DESCRIPTION
 
-Perl::MinimumVersion::Fast is alternativee implemntation of Perl::MinimumVersion.
+"Perl::MinimumVersion::Fast" takes Perl source code and calculates the minimum
+version of perl required to be able to run it. Because it is based on PPI,
+it can do this without having to actually load the code.
+
+Perl::MinimumVersion::Fast is alternative implementation of Perl::MinimumVersion.
 
 It's based on goccy's L<Compiler::Lexer>.
 
-This module detects features only supported on B<Perl 5.10+> like I<given>, I<when>.
+This module supports only Perl 5.8.1+.
 If you want to support B<Perl 5.6>, use L<Perl::MinimumVersion> instead.
+
+In 2013, you don't need to support Perl 5.6 in most of case.
 
 =head1 METHODS
 
@@ -142,6 +148,18 @@ Get a minimum perl version the code required.
 
 =back
 
+=head1 BENCHMARK
+
+Perl::MinimumVersion::Fast is faster than Perl::MinimumVersion.
+Because Perl::MinimumVersion::Fast uses L<Compiler::Lexer>, that is a Perl5 lexer implemented in C++.
+And Perl::MinimumVersion::Fast omits some features implemented in Perl::MinimumVersion.
+
+But, but, L<Perl::MinimumVersion::Fast> is really fast.
+
+                                Rate Perl::MinimumVersion Perl::MinimumVersion::Fast
+    Perl::MinimumVersion       5.26/s                   --                       -97%
+    Perl::MinimumVersion::Fast  182/s                3365%                         --
+
 =head1 LICENSE
 
 Copyright (C) tokuhirom.
@@ -155,7 +173,9 @@ tokuhirom E<lt>tokuhirom@gmail.comE<gt>
 
 =head1 SEE ALSO
 
-L<Compiler::Lexer>, L<Perl::MinimumVersion>
+This module using L<Compiler::Lexer> as a lexer for Perl5 code.
+
+This module is inspired from L<Perl::MinimumVersion>.
 
 =cut
 
