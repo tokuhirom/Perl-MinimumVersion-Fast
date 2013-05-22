@@ -6,7 +6,7 @@ use warnings;
 use Compiler::Lexer;
 use List::Util qw(max);
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 my $MIN_VERSION   = version->new('5.008');
 my $VERSION_5_012 = version->new('5.012');
@@ -257,6 +257,10 @@ Copyright (C) tokuhirom.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
+
+=head1 THANKS TO
+
+Most of documents are taken from L<Perl::MinimumVersion>.
 
 =head1 AUTHOR
 

@@ -87,6 +87,10 @@ Copyright (C) tokuhirom.
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
+# THANKS TO
+
+Most of documents are taken from [Perl::MinimumVersion](http://search.cpan.org/perldoc?Perl::MinimumVersion).
+
 # AUTHOR
 
 tokuhirom <tokuhirom@gmail.com>
