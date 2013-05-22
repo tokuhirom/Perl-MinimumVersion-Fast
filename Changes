@@ -2,6 +2,11 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.03 2013-05-22T10:11:34Z
+
+    - Suppress warnings
+      (tokuhirom)
+
 0.02 2013-05-22T09:56:41Z
 
     - Added minimum_explicit_version, minimum_syntax_version, version_markers.
