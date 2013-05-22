@@ -41,7 +41,7 @@ sub _build_minimum_explicit_version {
     my @tokens = map { @$$_ } @{$tokens};
 
     my $explicit_version;
-    for my $i (0..@$tokens-1) {
+    for my $i (0..@tokens-1) {
         if ($tokens[$i]->{name} eq 'UseDecl' || $tokens[$i]->{name} eq 'RequireDecl') {
             # use feature => 5.010
             # use mro     => 5.010
