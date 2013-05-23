@@ -2,6 +2,10 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.06 2013-05-23T09:54:19Z
+
+    - Compiler::Lexer 0.06 supports v-string.
+
 0.05 2013-05-23T06:55:54Z
 
     - Support 'package NAME BLOCK' syntax, introduced from 5.14.
