@@ -15,12 +15,12 @@ for (
     ['package Foo 3', '5.012'],
     ['package Foo 3.14', '5.012'],
     ['package Foo 3.14_01', '5.012'],
-    # ↓ Compiler::Lexer 0.05 can't parse this.
-#   ['package Foo v0.0.1', '5.012'],
+    ['package Foo v0.0.1', '5.012'],
     ['package Foo { }', '5.014'],
     ['package Foo 3 { }', '5.014'],
     ['package Foo 3.14 { }', '5.014'],
-    ['package Foo v0.0.1 { }', '5.014'],
+    # ↓ Compiler::Lexer 0.05 can't parse this.
+#   ['package Foo v0.0.1 { }', '5.014'],
     ['package Foo; { }', '5.008'],
     ['require mro', '5.010'],
     ['use mro', '5.010'],
