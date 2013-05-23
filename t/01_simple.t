@@ -12,10 +12,16 @@ for (
     ['...', '5.012'],
     ['package Foo', '5.008'],
     ['package Foo;', '5.008'],
-    ['package Foo 3 { }', '5.012'],
     ['package Foo 3', '5.012'],
-    ['package Foo 3.14 { }', '5.012'],
-    ['package Foo v0.0.1 { }', '5.012'],
+    ['package Foo 3.14', '5.012'],
+    ['package Foo 3.14_01', '5.012'],
+    # ↓ Compiler::Lexer 0.05 can't parse this.
+#   ['package Foo v0.0.1', '5.012'],
+    ['package Foo { }', '5.014'],
+    ['package Foo 3 { }', '5.014'],
+    ['package Foo 3.14 { }', '5.014'],
+    ['package Foo v0.0.1 { }', '5.014'],
+    ['package Foo; { }', '5.008'],
     ['require mro', '5.010'],
     ['use mro', '5.010'],
     ['use feature', '5.010'],
@@ -47,6 +53,7 @@ for (
     my ($src, $version) = @$_;
     my $p = Perl::MinimumVersion::Fast->new(\$src);
     is($p->minimum_version, $version, $src);
+    dump_version_markers($p);
 }
 
 subtest 'minimum_explict_version/minimum_syntax_version' => sub {
@@ -89,3 +96,10 @@ subtest 'version markers' => sub {
 
 done_testing;
 
+sub dump_version_markers {
+    my $p = shift;
+    my @rv = $p->version_markers;
+    for (my $i=0; $i<@rv; $i+=2) {
+        note $rv[$i] . ":\n" . join("\n", map { "  - $_" } @{$rv[$i+1]});
+    }
+}

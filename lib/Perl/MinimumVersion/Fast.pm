@@ -3,12 +3,15 @@ use 5.008005;
 use strict;
 use warnings;
 
+use version ();
+
 use Compiler::Lexer;
 use List::Util qw(max);
 
 our $VERSION = "0.04";
 
 my $MIN_VERSION   = version->new('5.008');
+my $VERSION_5_014 = version->new('5.014');
 my $VERSION_5_012 = version->new('5.012');
 my $VERSION_5_010 = version->new('5.010');
 
@@ -73,11 +76,17 @@ sub _build_minimum_syntax_version {
             # ... => 5.12
             $test->('yada-yada-yada operator(...)' => $VERSION_5_012);
         } elsif ($token->{name} eq 'Package') {
-            if (@tokens > $i+2) {
+            if (@tokens > $i+2 && $tokens[$i+1]->name eq 'Class') {
                 my $number = $tokens[$i+2];
                 if ($number->{name} eq 'Int' || $number->{name} eq 'Double' || $number->{name} eq 'Key') {
                     # package NAME VERSION; => 5.012
                     $test->('package NAME VERSION' => $VERSION_5_012);
+
+                    if (@tokens > $i+3 && $tokens[$i+3]->{name} eq 'LeftBrace') {
+                        $test->('package NAME VERSION BLOCK' => $VERSION_5_014);
+                    }
+                } elsif ($tokens[$i+2]->{name} eq 'LeftBrace') {
+                    $test->('package NAME BLOCK' => $VERSION_5_014);
                 }
             }
         } elsif ($token->{name} eq 'UseDecl' || $token->{name} eq 'RequireDecl') {
