@@ -78,7 +78,7 @@ sub _build_minimum_syntax_version {
         } elsif ($token->{name} eq 'Package') {
             if (@tokens > $i+2 && $tokens[$i+1]->name eq 'Class') {
                 my $number = $tokens[$i+2];
-                if ($number->{name} eq 'Int' || $number->{name} eq 'Double' || $number->{name} eq 'Key') {
+                if ($number->{name} eq 'Int' || $number->{name} eq 'Double' || $number->{name} eq 'VersionString') {
                     # package NAME VERSION; => 5.012
                     $test->('package NAME VERSION' => $VERSION_5_012);
 
