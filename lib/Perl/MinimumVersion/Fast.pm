@@ -5,7 +5,7 @@ use warnings;
 
 use version ();
 
-use Compiler::Lexer;
+use Compiler::Lexer 0.07;
 use List::Util qw(max);
 
 our $VERSION = "0.06";
