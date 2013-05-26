@@ -2,6 +2,12 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.07 2013-05-26T10:15:03Z
+
+    - Fixed postfix when detection
+      https://github.com/tokuhirom/Perl-MinimumVersion-Fast/issues/3
+      (Reported by kevindawson++)
+
 0.06 2013-05-23T09:54:19Z
 
     - Compiler::Lexer 0.06 supports v-string.
