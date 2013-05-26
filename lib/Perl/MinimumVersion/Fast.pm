@@ -127,7 +127,11 @@ sub _build_minimum_syntax_version {
                 $test->('%-/%+' => $VERSION_5_010);
             }
         } elsif ($token->{name} eq 'WhenStmt') {
-            if ($i >= 1 && ($tokens[$i-1]->{name} ne 'SemiColon' && $tokens[$i-1]->{name} ne 'RightBrace')) {
+            if ($i >= 1 && (
+                       $tokens[$i-1]->{name} ne 'SemiColon'
+                    && $tokens[$i-1]->{name} ne 'RightBrace'
+                    && $tokens[$i-1]->{name} ne 'LeftBrace'
+                )) {
                 $test->("postfix when" => $VERSION_5_012);
             } else {
                 $test->("normal when" => $VERSION_5_010);
