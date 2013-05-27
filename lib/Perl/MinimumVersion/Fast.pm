@@ -11,6 +11,8 @@ use List::Util qw(max);
 our $VERSION = "0.07";
 
 my $MIN_VERSION   = version->new('5.008');
+my $VERSION_5_018 = version->new('5.018');
+my $VERSION_5_016 = version->new('5.016');
 my $VERSION_5_014 = version->new('5.014');
 my $VERSION_5_012 = version->new('5.012');
 my $VERSION_5_010 = version->new('5.010');
@@ -97,7 +99,30 @@ sub _build_minimum_syntax_version {
                 if ($next_token->{data} eq 'mro') {
                     $test->('use mro' => $VERSION_5_010);
                 } elsif ($next_token->{data} eq 'feature') {
-                    $test->('use feature' => $VERSION_5_010);
+                    if (@tokens > $i+2) {
+                        my $next_token = $tokens[$i+2];
+                        if ($next_token->name eq 'String') {
+                            my $arg = $next_token->data;
+                            my $ver = do {
+                                if ($arg eq 'fc' || $arg eq 'unicode_eval' || $arg eq 'current_sub') {
+                                    $VERSION_5_016;
+                                } elsif ($arg eq 'unicode_strings') {
+                                    $VERSION_5_012;
+                                } elsif ($arg eq 'experimental::lexical_subs') {
+                                    $VERSION_5_018;
+                                } elsif ($arg =~ /\A:5\.(.*)\z/) {
+                                    version->new("v5.$1");
+                                } else {
+                                    $VERSION_5_010;
+                                }
+                            };
+                            $test->('use feature' => $ver);
+                        } else {
+                            $test->('use feature' => $VERSION_5_010);
+                        }
+                    } else {
+                        $test->('use feature' => $VERSION_5_010);
+                    }
                 }
             }
         } elsif ($token->{name} eq 'DefaultOperator') {
