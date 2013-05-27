@@ -6,7 +6,7 @@ use 5.008;
 use strict;
 use warnings;
 use File::Spec ();
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 # Find the mime type for a file
 sub file_mimetype {
