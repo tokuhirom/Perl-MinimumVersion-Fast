@@ -2,6 +2,10 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.10 2013-05-29T08:24:23Z
+
+    - removed debugging stmt.
+
 0.09 2013-05-29T05:41:09Z
 
     - Support /(each|values|keys) (@array|$ref)/.
