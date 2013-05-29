@@ -9,6 +9,21 @@ diag "Compiler::Lexer: $Compiler::Lexer::VERSION";
 
 note '--- minimum_version';
 for (
+    ['each %hash', '5.008'],
+    ['my %hash; each %hash', '5.008'],
+    ['each $hashref', '5.014'],
+    ['my $hashref; each $hashref', '5.014'],
+    ['each @array', '5.012'],
+    ['my @array; each @array', '5.012'],
+    ['keys @array', '5.012'],
+    ['my @array; keys @array', '5.012'],
+    ['keys $hashref', '5.014'],
+    ['my $hashref; keys $hashref', '5.014'],
+    ['my @array; each @array', '5.012'],
+    ['values @array', '5.012'],
+    ['my @array; values @array', '5.012'],
+    ['values $hashref', '5.014'],
+    ['my $hashref; values $hashref', '5.014'],
     ['...', '5.012'],
     ['package Foo', '5.008'],
     ['package Foo;', '5.008'],
@@ -60,7 +75,7 @@ for (
 ) {
     my ($src, $version) = @$_;
     my $p = Perl::MinimumVersion::Fast->new(\$src);
-    is($p->minimum_version, $version, $src);
+    is($p->minimum_version, $version, $src) or die;
     dump_version_markers($p);
 }
 
