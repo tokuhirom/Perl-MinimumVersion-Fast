@@ -166,7 +166,6 @@ sub _build_minimum_syntax_version {
                 my $func = $token->data;
                 if (@tokens >= $i+1) {
                     my $next_token = $tokens[$i+1];
-                    warn $next_token->name;
                     if ($next_token->name eq 'GlobalVar' || $next_token->name eq 'Var') {
                         # each $hashref
                         # each $arrayref
