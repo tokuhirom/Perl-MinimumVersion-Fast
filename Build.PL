@@ -25,7 +25,7 @@ my %args = (
 
     name            => 'Perl-MinimumVersion-Fast',
     module_name     => 'Perl::MinimumVersion::Fast',
-    allow_pure_perl => 0,
+    allow_pureperl => 0,
 
     script_files => [glob('script/*'), glob('bin/*')],
 
