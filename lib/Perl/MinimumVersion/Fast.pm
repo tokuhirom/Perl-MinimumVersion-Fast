@@ -232,7 +232,7 @@ Perl::MinimumVersion::Fast - Find a minimum required version of perl for Perl co
 =head1 DESCRIPTION
 
 "Perl::MinimumVersion::Fast" takes Perl source code and calculates the minimum
-version of perl required to be able to run it. Because it is based on PPI,
+version of perl required to be able to run it. Because it is based on Compiler::Lexer,
 it can do this without having to actually load the code.
 
 Perl::MinimumVersion::Fast is alternative implementation of Perl::MinimumVersion.
