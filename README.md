@@ -18,7 +18,6 @@ it can do this without having to actually load the code.
 Perl::MinimumVersion::Fast is an alternative fast & lightweight implementation of Perl::MinimumVersion.
 
 This module supports only Perl 5.8.1+.
-
 If you want to support __Perl 5.6__, use [Perl::MinimumVersion](http://search.cpan.org/perldoc?Perl::MinimumVersion) instead.
 
 In 2013, you don't need to support Perl 5.6 in most of case.
