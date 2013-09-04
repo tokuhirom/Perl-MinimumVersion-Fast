@@ -12,7 +12,7 @@ Perl::MinimumVersion::Fast - Find a minimum required version of perl for Perl co
 # DESCRIPTION
 
 "Perl::MinimumVersion::Fast" takes Perl source code and calculates the minimum
-version of perl required to be able to run it. Because it is based on goccy's [Compiler::Lexer](http://search.cpan.org/perldoc?Compiler::Lexer),
+version of perl required to be able to run it. Because it is based on goccy's [Compiler::Lexer](https://metacpan.org/module/Compiler::Lexer),
 it can do this without having to actually load the code.
 
 Perl::MinimumVersion::Fast is an alternative fast & lightweight implementation of Perl::MinimumVersion.
