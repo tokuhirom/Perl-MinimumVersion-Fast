@@ -72,6 +72,14 @@ for (
     [q!warn; when (1) { }!, '5.010'],
     [q!use 5.010!, '5.010'],
     [q!use 5.010_001!, '5.010_001'],
+    [q!split // => 3!, '5.008'],
+    [q!split //, 3!, '5.008'],
+    [q!split //!, '5.008'],
+    [q!(split //)!, '5.008'],
+    [q!{split //}!, '5.008'],
+    [q!map //, 3!, '5.008'],
+    [q!grep //, 3!, '5.008'],
+    [q!time // time!, '5.010'],
 ) {
     my ($src, $version) = @$_;
     my $p = Perl::MinimumVersion::Fast->new(\$src);
