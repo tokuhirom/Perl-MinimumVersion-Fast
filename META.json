@@ -65,7 +65,7 @@
          "web" : "https://github.com/tokuhirom/Perl-MinimumVersion-Fast"
       }
    },
-   "version" : "0.12",
+   "version" : "0.13",
    "x_contributors" : [
       "Kenichi Ishigaki <ishigaki@cpan.org>",
       "Karen Etheridge <ether@cpan.org>",

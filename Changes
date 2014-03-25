@@ -2,6 +2,10 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.13 2014-03-25T05:42:43Z
+
+    - Added workaround for `if (//) { }`
+
 0.12 2014-03-25T05:39:29Z
 
     - Detects empty regex as defined-or #7
