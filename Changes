@@ -2,6 +2,11 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.12 2014-03-25T05:39:29Z
+
+    - Detects empty regex as defined-or #7
+      (Reported by dagolden++)
+
 0.11 2013-06-25T08:03:05Z
 
     - Supoprt Compiler::Lexer 0.13

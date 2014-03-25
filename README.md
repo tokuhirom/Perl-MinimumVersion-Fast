@@ -12,28 +12,28 @@ Perl::MinimumVersion::Fast - Find a minimum required version of perl for Perl co
 # DESCRIPTION
 
 "Perl::MinimumVersion::Fast" takes Perl source code and calculates the minimum
-version of perl required to be able to run it. Because it is based on goccy's [Compiler::Lexer](https://metacpan.org/module/Compiler::Lexer),
+version of perl required to be able to run it. Because it is based on goccy's [Compiler::Lexer](https://metacpan.org/pod/Compiler::Lexer),
 it can do this without having to actually load the code.
 
-Perl::MinimumVersion::Fast is an alternative fast & lightweight implementation of [Perl::MinimumVersion](https://metacpan.org/module/Perl::MinimumVersion).
+Perl::MinimumVersion::Fast is an alternative fast & lightweight implementation of Perl::MinimumVersion.
 
 This module supports only Perl 5.8.1+.
-If you want to support __Perl 5.6__, use [Perl::MinimumVersion](http://search.cpan.org/perldoc?Perl::MinimumVersion) instead.
+If you want to support __Perl 5.6__, use [Perl::MinimumVersion](https://metacpan.org/pod/Perl::MinimumVersion) instead.
 
 In 2013, you don't need to support Perl 5.6 in most of case.
 
 # METHODS
 
-- my $p = Perl::MinimumVersion::Fast->new($filename);
-- my $p = Perl::MinimumVersion::Fast->new(\\$src);
+- `my $p = Perl::MinimumVersion::Fast->new($filename);`
+- `my $p = Perl::MinimumVersion::Fast->new(\$src);`
 
     Create new instance. You can create object from `$filename` and `\$src` in string.
 
-- $p->minimum\_version();
+- `$p->minimum_version();`
 
     Get a minimum perl version the code required.
 
-- $p->minimum\_explicit\_version()
+- `$p->minimum_explicit_version()`
 
     The `minimum_explicit_version` method checks through Perl code for the
     use of explicit version dependencies such as.
@@ -44,15 +44,15 @@ In 2013, you don't need to support Perl 5.6 in most of case.
     Although there is almost always only one of these in a file, if more than
     one are found, the highest version dependency will be returned.
 
-    Returns a [version](http://search.cpan.org/perldoc?version) object, `undef` if no dependencies could be found.
+    Returns a [version](https://metacpan.org/pod/version) object, `undef` if no dependencies could be found.
 
-- $p->minimum\_syntax\_version()
+- `$p->minimum_syntax_version()`
 
     The `minimum_syntax_version` method will explicitly test only the
     Document's syntax to determine it's minimum version, to the extent
     that this is possible.
 
-    Returns a [version](http://search.cpan.org/perldoc?version) object, `undef` if no dependencies could be found.
+    Returns a [version](https://metacpan.org/pod/version) object, `undef` if no dependencies could be found.
 
 - version\_markers
 
@@ -69,10 +69,10 @@ In 2013, you don't need to support Perl 5.6 in most of case.
 # BENCHMARK
 
 Perl::MinimumVersion::Fast is faster than Perl::MinimumVersion.
-Because Perl::MinimumVersion::Fast uses [Compiler::Lexer](http://search.cpan.org/perldoc?Compiler::Lexer), that is a Perl5 lexer implemented in C++.
+Because Perl::MinimumVersion::Fast uses [Compiler::Lexer](https://metacpan.org/pod/Compiler::Lexer), that is a Perl5 lexer implemented in C++.
 And Perl::MinimumVersion::Fast omits some features implemented in Perl::MinimumVersion.
 
-But, but, [Perl::MinimumVersion::Fast](http://search.cpan.org/perldoc?Perl::MinimumVersion::Fast) is really fast.
+But, but, [Perl::MinimumVersion::Fast](https://metacpan.org/pod/Perl::MinimumVersion::Fast) is really fast.
 
                                 Rate Perl::MinimumVersion Perl::MinimumVersion::Fast
     Perl::MinimumVersion       5.26/s                   --                       -97%
@@ -87,7 +87,7 @@ it under the same terms as Perl itself.
 
 # THANKS TO
 
-Most of documents are taken from [Perl::MinimumVersion](http://search.cpan.org/perldoc?Perl::MinimumVersion).
+Most of documents are taken from [Perl::MinimumVersion](https://metacpan.org/pod/Perl::MinimumVersion).
 
 # AUTHOR
 
@@ -95,6 +95,6 @@ tokuhirom <tokuhirom@gmail.com>
 
 # SEE ALSO
 
-This module using [Compiler::Lexer](http://search.cpan.org/perldoc?Compiler::Lexer) as a lexer for Perl5 code.
+This module using [Compiler::Lexer](https://metacpan.org/pod/Compiler::Lexer) as a lexer for Perl5 code.
 
-This module is inspired from [Perl::MinimumVersion](http://search.cpan.org/perldoc?Perl::MinimumVersion).
+This module is inspired from [Perl::MinimumVersion](https://metacpan.org/pod/Perl::MinimumVersion).

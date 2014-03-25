@@ -8,7 +8,7 @@ use version ();
 use Compiler::Lexer 0.13;
 use List::Util qw(max);
 
-our $VERSION = "0.11";
+our $VERSION = "0.12";
 
 my $MIN_VERSION   = version->new('5.008');
 my $VERSION_5_018 = version->new('5.018');
@@ -249,17 +249,17 @@ In 2013, you don't need to support Perl 5.6 in most of case.
 
 =over 4
 
-=item my $p = Perl::MinimumVersion::Fast->new($filename);
+=item C<< my $p = Perl::MinimumVersion::Fast->new($filename); >>
 
-=item my $p = Perl::MinimumVersion::Fast->new(\$src);
+=item C<< my $p = Perl::MinimumVersion::Fast->new(\$src); >>
 
 Create new instance. You can create object from C<< $filename >> and C<< \$src >> in string.
 
-=item $p->minimum_version();
+=item C<< $p->minimum_version(); >>
 
 Get a minimum perl version the code required.
 
-=item $p->minimum_explicit_version()
+=item C<< $p->minimum_explicit_version() >>
 
 The C<minimum_explicit_version> method checks through Perl code for the
 use of explicit version dependencies such as.
@@ -272,7 +272,7 @@ one are found, the highest version dependency will be returned.
 
 Returns a L<version> object, C<undef> if no dependencies could be found.
 
-=item $p->minimum_syntax_version()
+=item C<< $p->minimum_syntax_version() >>
 
 The C<minimum_syntax_version> method will explicitly test only the
 Document's syntax to determine it's minimum version, to the extent
