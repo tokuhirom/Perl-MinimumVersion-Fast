@@ -128,7 +128,9 @@ sub _build_minimum_syntax_version {
         } elsif ($token->{name} eq 'DefaultOperator') {
             if ($token->{data} eq '//' && $i >= 1) {
                 my $prev_token = $tokens[$i-1];
-                unless ($prev_token->name eq 'BuiltinFunc' && $prev_token->data =~ m{\A(?:split|grep|map)\z}) {
+                unless (
+                    ($prev_token->name eq 'BuiltinFunc' && $prev_token->data =~ m{\A(?:split|grep|map)\z})
+                    || $prev_token->name eq 'LeftParenthesis') {
                     $test->('// operator' => $VERSION_5_010);
                 }
             }
