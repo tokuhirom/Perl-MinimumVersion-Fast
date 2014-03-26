@@ -48,8 +48,6 @@ sub _build_minimum_explicit_version {
     my $explicit_version;
     for my $i (0..@tokens-1) {
         if ($tokens[$i]->{name} eq 'UseDecl' || $tokens[$i]->{name} eq 'RequireDecl') {
-            # use feature => 5.010
-            # use mro     => 5.010
             if (@$tokens >= $i+1) {
                 my $next_token = $tokens[$i+1];
                 if ($next_token->{name} eq 'Double') {
@@ -93,12 +91,9 @@ sub _build_minimum_syntax_version {
             }
         } elsif ($token->{name} eq 'UseDecl' || $token->{name} eq 'RequireDecl') {
             # use feature => 5.010
-            # use mro     => 5.010
             if (@tokens >= $i+1) {
                 my $next_token = $tokens[$i+1];
-                if ($next_token->{data} eq 'mro') {
-                    $test->('use mro' => $VERSION_5_010);
-                } elsif ($next_token->{data} eq 'feature') {
+                if ($next_token->{data} eq 'feature') {
                     if (@tokens > $i+2) {
                         my $next_token = $tokens[$i+2];
                         if ($next_token->name eq 'String') {

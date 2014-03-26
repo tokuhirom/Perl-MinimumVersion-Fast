@@ -36,8 +36,12 @@ for (
     ['package Foo 3.14 { }', '5.014'],
     ['package Foo v0.0.1 { }', '5.014'],
     ['package Foo; { }', '5.008'],
-    ['require mro', '5.010'],
-    ['use mro', '5.010'],
+
+    # mro.pm is 5.10+ feature. But there is MRO::Compat.
+    # MRO::Compat do `$INC{'mro.pm'} = 1 `.
+    ['require mro', '5.008'],
+    ['use mro', '5.008'],
+
     ['use feature', '5.010'],
     ['use feature;', '5.010'],
     ['use feature "unicode_strings"', '5.012'],
