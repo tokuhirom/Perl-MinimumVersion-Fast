@@ -2,6 +2,11 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.14 2014-03-26T02:59:38Z
+
+    - You can use mro.pm with Perl 5.8!
+      There is MRO::Compat.
+
 0.13 2014-03-25T05:42:43Z
 
     - Added workaround for `if (//) { }`
