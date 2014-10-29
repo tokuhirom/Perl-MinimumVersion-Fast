@@ -175,6 +175,16 @@ sub _build_minimum_syntax_version {
                     }
                 }
             }
+            if ($token->data eq 'push' || $token->data eq 'unshift' || $token->data eq 'pop' || $token->data eq 'shift' || $token->data eq 'splice') {
+                my $func = $token->data;
+                if (@tokens >= $i+1) {
+                    my $next_token = $tokens[$i+1];
+                    if ($next_token->name eq 'GlobalVar' || $next_token->name eq 'Var') {
+                        # shift $arrayref
+                        $test->("$func \$arrayref" => $VERSION_5_014);
+                    }
+                }
+            }
         }
     }
     return $syntax_version;
