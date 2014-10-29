@@ -4,7 +4,7 @@
       "tokuhirom <tokuhirom@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.12.0, CPAN::Meta::Converter version 2.133380",
+   "generated_by" : "Minilla/v2.1.1, CPAN::Meta::Converter version 2.142060",
    "license" : [
       "perl_5"
    ],
@@ -28,22 +28,21 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "CPAN::Meta" : "0",
-            "CPAN::Meta::Prereqs" : "0",
             "Module::Build" : "0.38"
          }
       },
       "develop" : {
          "requires" : {
             "Test::CPAN::Meta" : "0",
-            "Test::MinimumVersion" : "0.10108",
+            "Test::MinimumVersion::Fast" : "0.04",
+            "Test::PAUSE::Permissions" : "0.04",
             "Test::Pod" : "1.41",
             "Test::Spellunker" : "v0.2.7"
          }
       },
       "runtime" : {
          "requires" : {
-            "Compiler::Lexer" : "0.13",
+            "Compiler::Lexer" : "0.17",
             "perl" : "5.008005"
          }
       },
@@ -61,14 +60,14 @@
       "homepage" : "https://github.com/tokuhirom/Perl-MinimumVersion-Fast",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/tokuhirom/Perl-MinimumVersion-Fast.git",
+         "url" : "git://github.com/tokuhirom/Perl-MinimumVersion-Fast",
          "web" : "https://github.com/tokuhirom/Perl-MinimumVersion-Fast"
       }
    },
-   "version" : "0.14",
+   "version" : "0.15",
    "x_contributors" : [
-      "Kenichi Ishigaki <ishigaki@cpan.org>",
       "Karen Etheridge <ether@cpan.org>",
-      "Ahmad M. Zawawi <ahmad.zawawi@gmail.com>"
+      "Ahmad M. Zawawi <ahmad.zawawi@gmail.com>",
+      "Kenichi Ishigaki <ishigaki@cpan.org>"
    ]
 }

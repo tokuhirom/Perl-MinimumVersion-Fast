@@ -2,6 +2,10 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.15 2014-10-29T05:57:40Z
+    - Support push($arrayref, ...) and the likes
+      (Reported by apocalypse++, with help from moznion++)
+
 0.14 2014-03-26T02:59:38Z
 
     - You can use mro.pm with Perl 5.8!
