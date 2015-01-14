@@ -50,7 +50,7 @@ sub _build_minimum_explicit_version {
         if ($tokens[$i]->{name} eq 'UseDecl' || $tokens[$i]->{name} eq 'RequireDecl') {
             if (@$tokens >= $i+1) {
                 my $next_token = $tokens[$i+1];
-                if ($next_token->{name} eq 'Double') {
+                if ($next_token->{name} eq 'Double' or $next_token->{name} eq 'VersionString') {
                     $explicit_version = max($explicit_version || 0, version->new($next_token->{data}));
                 }
             }
