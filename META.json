@@ -64,11 +64,12 @@
          "web" : "https://github.com/tokuhirom/Perl-MinimumVersion-Fast"
       }
    },
-   "version" : "0.16",
+   "version" : "0.17",
    "x_contributors" : [
       "Karen Etheridge <ether@cpan.org>",
       "Ahmad M. Zawawi <ahmad.zawawi@gmail.com>",
       "Kenichi Ishigaki <ishigaki@cpan.org>",
-      "brian d foy <brian.d.foy@gmail.com>"
+      "brian d foy <brian.d.foy@gmail.com>",
+      "H.Merijn Brand - Tux <h.m.brand@xs4all.nl>"
    ]
 }

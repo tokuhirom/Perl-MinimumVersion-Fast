@@ -2,6 +2,25 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.17 2015-02-13T23:41:10Z
+
+    commit 402c83db1371634474b8810687273c57c3949a6f
+    Author: H.Merijn Brand - Tux <h.m.brand@xs4all.nl>
+    Date:   Fri Feb 13 08:54:37 2015 +0100
+
+        Check if pack format requires 5.10
+
+    commit a67a8e19f754e1f29bfc89d8eb48e2a7e2352956
+    Author: brian d foy <brian.d.foy@gmail.com>
+    Date:   Sat Jan 24 14:09:38 2015 -0500
+
+        Recognize PostDeref
+
+        I just sent a pull request for Compiler::Lexer
+        which will produce these names. When that module
+        is updated, I'll grab the version number and
+        adjust the required version.
+
 0.16 2015-01-22T10:31:00Z
 
     commit 44553ef0c4bdbfb7e85052bdcdaab161c80b2c59
