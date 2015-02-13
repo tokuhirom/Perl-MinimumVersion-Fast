@@ -11,6 +11,7 @@ use List::Util qw(max);
 our $VERSION = "0.16";
 
 my $MIN_VERSION   = version->new('5.008');
+my $VERSION_5_020 = version->new('5.020');
 my $VERSION_5_018 = version->new('5.018');
 my $VERSION_5_016 = version->new('5.016');
 my $VERSION_5_014 = version->new('5.014');
@@ -190,6 +191,15 @@ sub _build_minimum_syntax_version {
                     }
                 }
             }
+            if ($token->data eq 'pack' || $token->data eq 'unpack') {
+                if (@tokens >= $i+1 and my $next_token = $tokens[$i+1]) {
+                    if ($next_token->{name} eq 'String' && $next_token->data =~ m/[<>]/) {
+                        $test->($token->data." uses < or >" => $VERSION_5_010);
+                    }
+                }
+            }
+        } elsif ($token->{name} eq 'PostDeref' || $token->{name} eq 'PostDerefStar') {
+			$test->("postfix dereference" => $VERSION_5_020);
         }
     }
     return $syntax_version;
