@@ -10,13 +10,14 @@ use List::Util qw(max);
 
 our $VERSION = "0.17";
 
-my $MIN_VERSION   = version->new('5.008');
+my $MIN_VERSION   = version->new('5.006');
 my $VERSION_5_020 = version->new('5.020');
 my $VERSION_5_018 = version->new('5.018');
 my $VERSION_5_016 = version->new('5.016');
 my $VERSION_5_014 = version->new('5.014');
 my $VERSION_5_012 = version->new('5.012');
 my $VERSION_5_010 = version->new('5.010');
+my $VERSION_5_008 = version->new('5.008');
 
 sub new {
     my ($class, $stuff) = @_;
@@ -91,8 +92,8 @@ sub _build_minimum_syntax_version {
                 }
             }
         } elsif ($token->{name} eq 'UseDecl' || $token->{name} eq 'RequireDecl') {
-            # use feature => 5.010
             if (@tokens >= $i+1) {
+                # use feature => 5.010
                 my $next_token = $tokens[$i+1];
                 if ($next_token->{data} eq 'feature') {
                     if (@tokens > $i+2) {
@@ -119,6 +120,8 @@ sub _build_minimum_syntax_version {
                     } else {
                         $test->('use feature' => $VERSION_5_010);
                     }
+                } elsif ($next_token->{data} eq 'utf8') {
+                    $test->('utf8 pragma included in 5.6. Broken until 5.8' => $VERSION_5_008);
                 }
             }
         } elsif ($token->{name} eq 'DefaultOperator') {
