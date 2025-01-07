@@ -28,7 +28,7 @@ sub new {
         $filename = $stuff;
         open my $fh, '<', $filename
             or die "Unknown file: $filename";
-        $src = do { local $/; <$fh> }; 
+        $src = do { local $/; <$fh> };
     } else {
         $filename = '-';
         $src = $$stuff;
