@@ -203,7 +203,7 @@ sub _build_minimum_syntax_version {
             }
         } elsif ($token->{name} eq 'PostDeref' || $token->{name} eq 'PostDerefStar') {
 			$test->("postfix dereference" => $VERSION_5_020);
-        } elsif ( 2 == grep { $_->{name} eq 'Handle' and $_->{data} =~ /\A - [rwxoRWXOezsfdlpSbcugkTBMAC] /x } @tokens[$i, $i+1] ) {
+        } elsif ( 2 == grep { defined $_->{name} and $_->{name} eq 'Handle' and $_->{data} =~ /\A - [rwxoRWXOezsfdlpSbcugkTBMAC] /x } @tokens[$i, $i+1] ) {
 			$test->("stacked file tests" => $VERSION_5_010);
         }
     }
