@@ -63,6 +63,7 @@ sub _build_minimum_explicit_version {
 
 sub _build_minimum_syntax_version {
     my ($self, $tokens) = @_;
+       print Dumper( $tokens ); use Data::Dumper;
     my @tokens = map { @$_ } @{$tokens};
     my $syntax_version = $MIN_VERSION;
 
@@ -74,6 +75,7 @@ sub _build_minimum_syntax_version {
 
     for my $i (0..@tokens-1) {
         my $token = $tokens[$i];
+       print Dumper( $token ); use Data::Dumper;
         if ($token->{name} eq 'ToDo') {
             # ... => 5.12
             $test->('yada-yada-yada operator(...)' => $VERSION_5_012);
@@ -203,6 +205,8 @@ sub _build_minimum_syntax_version {
             }
         } elsif ($token->{name} eq 'PostDeref' || $token->{name} eq 'PostDerefStar') {
 			$test->("postfix dereference" => $VERSION_5_020);
+        } elsif ( 2 == grep { $_->{name} eq 'Handle' and $_->{data} =~ /\A - [rwxoRWXOezsfdlpSbcugkTBMAC] /x } @tokens[$i, $i+1] ) {
+			$test->("stacked file tests" => $VERSION_5_010);
         }
     }
     return $syntax_version;
