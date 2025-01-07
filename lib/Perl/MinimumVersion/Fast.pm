@@ -210,7 +210,7 @@ sub _build_minimum_syntax_version {
 
 sub minimum_version {
     my $self = shift;
-    return $self->{minimum_explicit_version} > $self->{minimum_syntax_version}
+    return defined $self->{minimum_explicit_version} && ($self->{minimum_explicit_version} > $self->{minimum_syntax_version})
         ? $self->{minimum_explicit_version}
         : $self->{minimum_syntax_version};
 }
