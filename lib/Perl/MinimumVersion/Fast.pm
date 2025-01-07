@@ -63,7 +63,6 @@ sub _build_minimum_explicit_version {
 
 sub _build_minimum_syntax_version {
     my ($self, $tokens) = @_;
-       print Dumper( $tokens ); use Data::Dumper;
     my @tokens = map { @$_ } @{$tokens};
     my $syntax_version = $MIN_VERSION;
 
@@ -75,7 +74,6 @@ sub _build_minimum_syntax_version {
 
     for my $i (0..@tokens-1) {
         my $token = $tokens[$i];
-       print Dumper( $token ); use Data::Dumper;
         if ($token->{name} eq 'ToDo') {
             # ... => 5.12
             $test->('yada-yada-yada operator(...)' => $VERSION_5_012);
