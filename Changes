@@ -2,6 +2,14 @@ Revision history for Perl extension Perl-MinimumVersion-Fast
 
 {{$NEXT}}
 
+0.22 2025-01-07T06:49:00Z
+
+	- silence a warning (GitHub #23, Shoichi Kaji)
+
+0.21 2025-01-07T06:49:00Z
+
+    - Remove notes about v5.6 now that we support that
+
 0.19 2020-04-15T05:27:20Z
 
     - Depends on Compiler::Lexer 0.23
