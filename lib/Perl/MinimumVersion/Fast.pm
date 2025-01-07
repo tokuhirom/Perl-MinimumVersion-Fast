@@ -265,11 +265,6 @@ it can do this without having to actually load the code.
 
 Perl::MinimumVersion::Fast is an alternative fast & lightweight implementation of Perl::MinimumVersion.
 
-This module supports only Perl 5.8.1+.
-If you want to support B<Perl 5.6>, use L<Perl::MinimumVersion> instead.
-
-In 2013, you don't need to support Perl 5.6 in most of case.
-
 =head1 METHODS
 
 =over 4
