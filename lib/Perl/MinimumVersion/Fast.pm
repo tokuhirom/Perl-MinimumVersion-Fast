@@ -267,6 +267,80 @@ it can do this without having to actually load the code.
 
 Perl::MinimumVersion::Fast is an alternative fast & lightweight implementation of Perl::MinimumVersion.
 
+=head1 SUPPORTED VERSION FESTURES
+
+So far, this module detects some features from Perl v5.6 up to Perl v5.20.
+Note all features are checked, and some checked features are not checked
+comprehensively.
+
+=head1 v5.10
+
+=over 4
+
+=item * the C<feature> pragma
+
+=item * defined-or, C<//>, and binary assignment defined-or, C<//=>
+
+=item * pack architecture types with C<< < >> or C<< > >>
+
+=item * smart match, C<~~> and C<given-when>
+
+=item * stacked file tests
+
+=item * the variables C<%+>, C<%->, C<@->
+
+=back
+
+=head2 v5.12
+
+=over 4
+
+=item * C<each>, C<keys>, C<values> on an array
+
+=item * <PACKAGE NAME VERSION>
+
+=item * postfix C<when>
+
+=item * yada yada (C<...>)
+
+=item * C<unicode_strings> (when declared in C<use feature>)
+
+=back
+
+=head2 v5.14
+
+=over 4
+
+=item * C<each>, C<keys>, C<push>, C<pop>, C<shift>, C<unshift>, C<values> on an reference
+
+=item * <PACKAGE NAME BLOCK>
+
+=item * <PACKAGE NAME VERSION BLOCK>
+
+=back
+
+=head2 v5.16
+
+=over 4
+
+=item * fc (when declared in C<use feature>)
+
+=item * current_sub (when declared in C<use feature>)
+
+=item * lexical subs (when declared in C<use feature>)
+
+=item * unicode_eval (when declared in C<use feature>)
+
+=back
+
+=head2 v5.20
+
+=over 4
+
+=item * postfix dereferencing
+
+=back
+
 =head1 METHODS
 
 =over 4
